@@ -2,7 +2,6 @@ import './App.css';
 import TextField from "@material-ui/core/TextField";
 import * as React from "react";
 import Stats from "./Stats";
-import EthChart from "./Chart";
 
 function App() {
 
