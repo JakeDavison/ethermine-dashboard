@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 const ETHERMINE_URL = "https://api.ethermine.org/";
 const ETH_EUR_URL = "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=EUR";
 
-const payoutAmount = 0.1
+const payoutThreshold = 0.1
 
 
 const sum = (a, b) => a + b;
@@ -54,6 +54,18 @@ function getAverageHashrates(ethermineResponse) {
 }
 
 
+function getSecsToWeekend() {
+
+    const now = Date.now();
+    var weekend = 1614902399000;
+
+    while (weekend < now) {
+        weekend += (1000*60*60*24*7*2);
+    }
+
+    return (weekend - now)/1000;
+
+}
 
 export default function Stats(props) {
 
@@ -69,21 +81,33 @@ export default function Stats(props) {
     function renderStatsNodes() {
 
         if (etherDashResponse.data && etherDashResponse.data.currentStatistics && etherStatsResponse.data) {
+            const ethPerMin = etherStatsResponse.data.coinsPerMin;
+
             let currentStats = etherDashResponse.data.currentStatistics;
             let avgHashes = getAverageHashrates(etherDashResponse);
-            let unpaidBalance = (etherStatsResponse.data.unpaid * 1e-18) * ethEur;
-            let earnings = etherStatsResponse.data.coinsPerMin * ethEur * 60 * 24;
-            let secsToPayout = (0.1 - (etherStatsResponse.data.unpaid * 1e-18))/(etherStatsResponse.data.coinsPerMin/60);
+            let unpaidBalance = etherStatsResponse.data.unpaid * 1e-18;
+            let earnings = ethPerMin * ethEur * 60 * 24;
+
+            let secsToThreshold = (0.1 - (etherStatsResponse.data.unpaid * 1e-18)) / (ethPerMin / 60);
+            let secsToWeekend = getSecsToWeekend();
+
+            let payoutAmount = secsToWeekend < secsToThreshold ? ((secsToWeekend/60)*ethPerMin*ethEur) + unpaidBalance : payoutThreshold*ethEur;
+
+            let unpaidSummary = "€" + (unpaidBalance*ethEur).toFixed(2) + " / " + unpaidBalance.toFixed(6) + " ETH";
+            console.log(unpaidSummary)
             return (
                 <Grid style={{flex: 3}} container spacing={3}>
-                    <Grid item xs={4}>
-                        <StatsNode label="Unpaid Balance" data={unpaidBalance} dataType="eur"/>
+                    <Grid item xs={6}>
+                        <StatsNode label="Unpaid Balance" data={unpaidSummary}/>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <StatsNode label="ETH Price" data={ethEur} dataType="eur"/>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <StatsNode label="Time To Payout" data={Math.min(secsToWeekend, secsToThreshold)} dataType="secs"/>
                     </Grid>
                     <Grid item xs={4}>
-                        <StatsNode label="Time To Payout" data={secsToPayout} dataType="secs"/>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <StatsNode label="Payout Amount" data={payoutAmount*ethEur} dataType="eur"/>
+                        <StatsNode label="Payout Amount" data={payoutAmount} dataType="eur"/>
                     </Grid>
                     <Grid item xs={3}>
                         <StatsNode label="Estimated Earnings Per Day" data={earnings} dataType="eur"/>

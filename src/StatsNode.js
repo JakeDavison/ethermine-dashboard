@@ -45,6 +45,8 @@ export default function StatsNode(props) {
             case "secs":
                 generateCountdown();
                 break;
+            default:
+                setValue(data);
         }
     }
 
