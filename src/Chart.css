@@ -1,3 +1,7 @@
-.Chart {
-  flex: 1;
+#Chart {
+  width: 365px;
+  height: 250px;
+  border: 0;
+  margin: auto;
+
 }
