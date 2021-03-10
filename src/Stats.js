@@ -1,11 +1,14 @@
 import * as React from "react";
 import StatsNode from "./StatsNode";
+import './Stats.css';
 import Grid from "@material-ui/core/Grid";
+import {useParams} from "react-router-dom";
 
 const ETHERMINE_URL = "https://api.ethermine.org/";
 const ETH_EUR_URL = "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=EUR";
 
 const payoutThreshold = 0.1
+
 
 
 const sum = (a, b) => a + b;
@@ -68,6 +71,8 @@ function getSecsToWeekend() {
 }
 
 export default function Stats(props) {
+
+    let { minerId } = useParams();
 
     function renderStatsPanel() {
         if (etherDashResponse && etherStatsResponse && ethEur) {
@@ -145,8 +150,6 @@ export default function Stats(props) {
         return "No data in Ethermine response.";
     }
 
-    var minerId = props.minerId;
-
     const [etherDashResponse, setEtherDashResponse] = React.useState(null);
     const [etherStatsResponse, setEtherStatsResponse] = React.useState(null);
     const [ethEur, setEthEur] = React.useState(null);
@@ -159,7 +162,7 @@ export default function Stats(props) {
 
 
     return (
-        <div>
+        <div className="StatsPanel">
             {renderStatsPanel()}
         </div>
     );

@@ -1,4 +1,5 @@
 import * as React from "react";
+import useFitText from "use-fit-text";
 import './StatsNode.css';
 
 
@@ -7,6 +8,8 @@ export default function StatsNode(props) {
     var data = props.data;
 
     const [value, setValue] = React.useState();
+    const { fontSize, ref } = useFitText();
+
 
     function scheduleCountdown() {
         const interval = setInterval(() => {
@@ -52,7 +55,7 @@ export default function StatsNode(props) {
 
     return (
         <div>
-            <div className="Data">
+            <div ref={ref} style={{fontSize: fontSize}} className="Data">
                 {value}
             </div>
             <div className="Label">
