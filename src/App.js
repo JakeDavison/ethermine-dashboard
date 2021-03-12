@@ -4,16 +4,23 @@ import * as React from "react";
 import Stats from "./Stats";
 import EthChart from "./EthChart";
 import {Switch, Route, useHistory} from "react-router-dom";
+import useCookie from 'react-use-cookie';
 
 function App() {
 
     const [minerIdInput, setMinerIdInput] = React.useState(null);
+    const [userWalletCookie, setUserWalletCookie] = useCookie("user-wallet", null);
 
     const history = useHistory();
+
+    if (userWalletCookie) {
+        history.push('/' + userWalletCookie);
+    }
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             history.push('/' + minerIdInput);
+            setUserWalletCookie(minerIdInput);
         }
     }
 

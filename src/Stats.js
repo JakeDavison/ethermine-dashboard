@@ -99,7 +99,6 @@ export default function Stats(props) {
             let payoutAmount = secsToWeekend < secsToThreshold ? ((secsToWeekend/60)*ethPerMin*ethEur) + unpaidBalance : payoutThreshold*ethEur;
 
             let unpaidSummary = "€" + (unpaidBalance*ethEur).toFixed(2) + " / " + unpaidBalance.toFixed(6) + " ETH";
-            console.log(unpaidSummary)
             return (
                 <Grid style={{flex: 3}} container spacing={3}>
                     <Grid item xs={6}>
