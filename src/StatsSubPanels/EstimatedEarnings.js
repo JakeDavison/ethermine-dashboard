@@ -1,5 +1,5 @@
 import * as React from "react";
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -14,6 +14,21 @@ const useStyles = makeStyles({
         minWidth: 320,
     },
 });
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+        fontWeight: "bold",
+    },
+    body: {
+        color: "green"
+    },
+}))(TableCell)
+
+const TitleTableCell = withStyles((theme) => ({
+    body: {
+        fontWeight: "bold",
+    },
+}))(TableCell)
 
 export default function EstimatedEarnings(props) {
 
@@ -45,19 +60,17 @@ export default function EstimatedEarnings(props) {
                 <Table className={classes.table} size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell></TableCell>
-                            <TableCell align="right">ETH</TableCell>
-                            <TableCell align="right">EUR</TableCell>
+                            <StyledTableCell></StyledTableCell>
+                            <StyledTableCell align="right">ETH</StyledTableCell>
+                            <StyledTableCell align="right">EUR</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {rows.map((row) => (
                             <TableRow key={row.name}>
-                                <TableCell component="th" scope="row">
-                                    {row.name}
-                                </TableCell>
-                                <TableCell align="right">{row.eth}</TableCell>
-                                <TableCell align="right">{row.eur}</TableCell>
+                                <TitleTableCell component="th" scope="row">{row.name}</TitleTableCell>
+                                <StyledTableCell align="right">{row.eth}</StyledTableCell>
+                                <StyledTableCell align="right">{row.eur}</StyledTableCell>
                             </TableRow>
                         ))}
                     </TableBody>

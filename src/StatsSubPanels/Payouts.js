@@ -1,7 +1,6 @@
 import * as React from "react";
 import Paper from '@material-ui/core/Paper';
 import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
 
 const payoutThreshold = 0.1
 
