@@ -34,7 +34,7 @@ export default function StatsNode(props) {
         let mins = Math.floor(total / 60);
         total -= mins * 60;
         let secs = Math.floor(total);
-        setValue((days ? (days + " Days ") : "") + (hours ? (hours + " Hours \n") : "") + (mins ? (mins + " Mins ") : "") + (secs + " Secs"));
+        setValue((days ? (days + "D ") : "") + (hours + ":") + (mins + ":") + secs);
     }
 
     if (!value) {

@@ -1,8 +1,12 @@
 #Chart {
-  flex: 1;
-  width: 365px;
-  height: 250px;
-  border: 0;
-  margin: auto;
+    flex: 1;
+    width: 365px;
+    height: 237px;
+    border: 0;
+    margin: auto;
+}
 
+.chartContainer {
+    display: block;
+    margin: auto;
 }

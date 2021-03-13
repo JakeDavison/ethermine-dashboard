@@ -6,3 +6,8 @@
   align-content: center;
   text-align: center;
 }
+
+.StatsSubPanelTitle {
+  font-size: 1rem;
+  padding-bottom: 0.4rem;
+}
