@@ -1,7 +1,7 @@
 .App-header {
     background-color: #FFF;
-    margin: auto;
-    width: 50%;
+    margin: 0.8rem auto auto;
+    width: 40%;
     height: 100vh;
     min-width: 340px;
     display: flex;

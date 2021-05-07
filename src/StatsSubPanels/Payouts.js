@@ -8,7 +8,7 @@ const payoutThreshold = 0.1
 function getSecsToWeekend() {
 
     const now = Date.now();
-    var weekend = 1614902399000;
+    var weekend = 1619960400;
 
     while (weekend < now) {
         weekend += (1000 * 60 * 60 * 24 * 7 * 2);
